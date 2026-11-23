@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>CORS Test</h2>
+
+<pre id="result">Loading...</pre>
+
+<script>
+fetch("https://uat.selfcare.ooredoo.qa/apigw/mcrosrvc/cf/v4/headless/headless-delivery/v1.0/sites/20122/structured-content-folders", {
+    credentials: "include"
+})
+.then(r => r.text())
+.then(data => {
+    document.getElementById("result").innerText = data;
+})
+.catch(err => {
+    document.getElementById("result").innerText = err;
+});
+</script>
+
+</body>
+</html>
