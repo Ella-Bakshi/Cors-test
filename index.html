@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h2>CORS Test</h2>
-
-<pre id="result">Loading...</pre>
-
+<!doctype html>
+<input id="j" type="password" placeholder="JWT">
+<button onclick="test()">Test CORS</button>
+<pre id="o"></pre>
 <script>
-fetch("https://uat.selfcare.ooredoo.qa/b2b-portal-uat2/endUserRegistration/editEndUserModal.html", {
-    credentials: "include"
-})
-.then(r => r.text())
-.then(data => {
-    document.getElementById("result").innerText = data;
-})
-.catch(err => {
-    document.getElementById("result").innerText = err;
-});
+const j=document.getElementById('j'),o=document.getElementById('o');
+async function test(){
+  try{
+    const r=await fetch('https://aigw-preprod.np.six-group.com/fd-mcp/v1/mcp',{
+      method:'POST',
+      headers:{Authorization:'Bearer '+j.value,'Content-Type':'application/json',Accept:'application/json, text/event-stream','MCP-Protocol-Version':'2025-11-25'},
+      body:'{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
+    });
+    o.textContent='CORS RESPONSE READABLE\nHTTP '+r.status+'\n'+await r.text();
+  }catch(e){o.textContent='BROWSER BLOCKED\n'+e}
+  j.value='';
+}
 </script>
-
-</body>
-</html>
